@@ -1,21 +1,14 @@
-# 🙋 Frequently Asked Questions
+## Que représentent ces numéros devant les réponses du personnel dans les fils de modmail ?
+Chaque réponse du personnel reçoit un numéro interne. Ce numéro peut être utilisé avec
+les commandes `!edit`, `!delete`, `!message` et éventuellement d'autres commandes à l'avenir.
 
-## What are these numbers in front of staff replies in modmail threads?
-Each staff reply gets an internal number. This number can be used with
-`!edit`, `!delete`, `!message` and potentially other commands in the future.
+## Dans une [configuration monoserveur](setup.md#single-server-setup), comment puis-je masquer les modmails aux utilisateurs réguliers ?
+1. Créez une catégorie privée pour les fils de modmail que seuls le personnel de votre serveur et le bot peuvent voir, puis définissez l'option
+`categoryAutomation.newThread` sur 1234 (remplacez 1234 par l'ID de la catégorie).
+2. Configurez l'option `inboxServerPermission` pour limiter qui peut utiliser les commandes du bot. [Cliquez ici pour plus d'informations.](configuration.md#inboxserverpermission)
 
-## In a [single-server setup](setup.md#single-server-setup), how do I hide modmails from regular users?
-1. Create a private category for modmail threads that only your server staff and the bot can see and set the option
-`categoryAutomation.newThread = 1234` (replace `1234` with the ID of the category)
-2. Set the `inboxServerPermission` option to limit who can use bot commands.
-   [Click here for more information.](configuration.md#inboxserverpermission)
+## Mes journaux ne se chargent pas !
+Étant donné que les journaux sont stockés et envoyés directement depuis la machine exécutant le bot, assurez-vous que la machine n'a pas de pare-feu bloquant le bot et que les redirections de port appropriées sont configurées. [Vous pouvez trouver plus d'informations et des instructions pour la redirection de port ici.](https://portforward.com/) Par défaut, le bot utilise le port **8890**.
 
-## My logs aren't loading!
-Since logs are stored and sent directly from the machine running the bot, you'll need to make sure
-that the machine doesn't have a firewall blocking the bot and has the appropriate port forwardings set up.
-[You can find more information and instructions for port forwarding here.](https://portforward.com/) 
-By default, the bot uses the port **8890**.
-
-
-## I want to categorize my modmail threads in multiple categories
-Set `allowMove = on` to allow your staff to move threads to other categories with `!move`
+## Je veux catégoriser mes fils de modmail dans plusieurs catégories
+Définissez `allowMove = on` pour permettre à votre personnel de déplacer les fils vers d'autres catégories avec `!move`.

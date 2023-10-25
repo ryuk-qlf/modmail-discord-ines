@@ -27,7 +27,6 @@ class Queue {
 
     const fn = this.queue.shift();
     new Promise(resolve => {
-      // Either fn() completes or the timeout of 10sec is reached
       fn().then(resolve);
       setTimeout(resolve, 10000);
     }).then(() => this.next());

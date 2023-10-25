@@ -1,119 +1,122 @@
-# Plugin API
-**NOTE:** This file is generated automatically.
+## API du Plugin
+**REMARQUE :** Ce fichier est généré automatiquement.
 
-Scroll down to [PluginAPI](#PluginAPI) for a list of properties available to plugins.
+Faites défiler jusqu'à [PluginAPI](#PluginAPI) pour voir la liste des propriétés disponibles pour les plugins.
 
-## Typedefs
+## Types définis
 
 <dl>
 <dt><a href="#PluginAPI">PluginAPI</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#PluginCommandsAPI">PluginCommandsAPI</a> : <code>object</code></dt>
+<dt><a href="#PluginCommandsAPI">API des Commandes de Plugin</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#PluginAttachmentsAPI">PluginAttachmentsAPI</a> : <code>object</code></dt>
+<dt><a href="#PluginAttachmentsAPI">API des Pièces Jointes de Plugin</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#PluginLogsAPI">PluginLogsAPI</a> : <code>object</code></dt>
+<dt><a href="#PluginLogsAPI">API des Journaux de Plugin</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#PluginHooksAPI">PluginHooksAPI</a> : <code>object</code></dt>
+<dt><a href="#PluginHooksAPI">API des Crochets de Plugin</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#PluginDisplayRolesAPI">PluginDisplayRolesAPI</a> : <code>displayRoles</code></dt>
+<dt><a href="#API des Rôles d'Affichage de Plugin">API des Rôles d'Affichage de Plugin</a> : <code>displayRoles</code></dt>
 <dd></dd>
-<dt><a href="#PluginThreadsAPI">PluginThreadsAPI</a> : <code>threads</code></dt>
+<dt><a href="#API des Fils de Plugin">API des Fils de Plugin</a> : <code>threads</code></dt>
 <dd></dd>
-<dt><a href="#PluginWebServerAPI">PluginWebServerAPI</a> : <code>express.Application</code></dt>
+<dt><a href="#API du Serveur Web de Plugin">API du Serveur Web de Plugin</a> : <code>express.Application</code></dt>
 <dd></dd>
-<dt><a href="#PluginFormattersAPI">PluginFormattersAPI</a> : <code>FormattersExport</code></dt>
+<dt><a href="#API des Formateurs de Plugin">API des Formateurs de Plugin</a> : <code>FormattersExport</code></dt>
 <dd></dd>
 </dl>
 
 <a name="PluginAPI"></a>
 
 ## PluginAPI : <code>object</code>
-**Kind**: global typedef  
-**Properties**
+**Type**: typedef  
+**Propriétés**
 
-| Name | Type |
+| Nom | Type |
 | --- | --- |
 | bot | <code>Client</code> | 
 | knex | <code>Knex</code> | 
 | config | <code>ModmailConfig</code> | 
-| commands | [<code>PluginCommandsAPI</code>](#PluginCommandsAPI) | 
-| attachments | [<code>PluginAttachmentsAPI</code>](#PluginAttachmentsAPI) | 
-| logs | [<code>PluginLogsAPI</code>](#PluginLogsAPI) | 
-| hooks | [<code>PluginHooksAPI</code>](#PluginHooksAPI) | 
-| formats | [<code>PluginFormattersAPI</code>](#PluginFormattersAPI) | 
-| webserver | [<code>PluginWebServerAPI</code>](#PluginWebServerAPI) | 
-| threads | [<code>PluginThreadsAPI</code>](#PluginThreadsAPI) | 
-| displayRoles | [<code>PluginDisplayRolesAPI</code>](#PluginDisplayRolesAPI) | 
+| commands | [<code>API des Commandes de Plugin</code>](#PluginCommandsAPI) | 
+| attachments | [<code>API des Pièces Jointes de Plugin</code>](#PluginAttachmentsAPI) | 
+| logs | [<code>API des Journaux de Plugin</code>](#PluginLogsAPI) | 
+| hooks | [<code>API des Crochets de Plugin</code>](#PluginHooksAPI) | 
+| formats | [<code>API des Formateurs de Plugin</code>](#PluginFormattersAPI) | 
+| webserver | [<code>API du Serveur Web de Plugin</code>](#PluginWebServerAPI) | 
+| threads | [<code>API des Fils de Plugin</code>](#PluginThreadsAPI) | 
+| displayRoles | [<code>API des Rôles d'Affichage de Plugin</code>](#PluginDisplayRolesAPI) | 
 
-<a name="PluginCommandsAPI"></a>
+<a name="API des Commandes de Plugin"></a>
 
-## PluginCommandsAPI : <code>object</code>
-**Kind**: global typedef  
-**Properties**
+## API des Commandes de Plugin : <code>object</code>
+**Type**: typedef  
+**Propriétés**
 
-| Name | Type |
+| Nom | Type |
 | --- | --- |
 | manager | <code>CommandManager</code> | 
-| addGlobalCommand | <code>AddGlobalCommandFn</code> | 
-| addInboxServerCommand | <code>AddInboxServerCommandFn</code> | 
-| addInboxThreadCommand | <code>AddInboxThreadCommandFn</code> | 
-| addAlias | <code>AddAliasFn</code> | 
+| addGlobalCommand | <code>FonctionAjouterCommandeGlobale</code> | 
+| addInboxServerCommand | <code>FonctionAjouterCommandeServeurBoîteDeRéception</code> | 
+| addInboxThreadCommand | <code>FonctionAjouterCommandeFilBoîteDeRéception</code> | 
+| addAlias | <code>FonctionAjouterAlias</code> | 
 
-<a name="PluginAttachmentsAPI"></a>
+<a name="API des Pièces Jointes de Plugin"></a>
 
-## PluginAttachmentsAPI : <code>object</code>
-**Kind**: global typedef  
-**Properties**
+## API des Pièces Jointes de Plugin : <code>object</code>
+**Type**: typedef  
+**Propriétés**
 
-| Name | Type |
+| Nom | Type |
 | --- | --- |
-| addStorageType | <code>AddAttachmentStorageTypeFn</code> | 
-| downloadAttachment | <code>DownloadAttachmentFn</code> | 
-| saveAttachment | <code>SaveAttachmentFn</code> | 
+| addStorageType | <code>FonctionAjouterTypeDeStockagePièceJointe</code> | 
+| downloadAttachment | <code>FonctionTéléchargerPièceJointe</code> | 
+| saveAttachment | <code>FonctionEnregistrerPièceJointe</code> | 
 
-<a name="PluginLogsAPI"></a>
+<a name="API des Journaux de Plugin"></a>
 
-## PluginLogsAPI : <code>object</code>
-**Kind**: global typedef  
-**Properties**
+## API des Journaux de Plugin : <code>object</code>
+**Type**: typedef  
+**Propriétés**
 
-| Name | Type |
+| Nom | Type |
 | --- | --- |
-| addStorageType | <code>AddLogStorageTypeFn</code> | 
-| saveLogToStorage | <code>SaveLogToStorageFn</code> | 
-| getLogUrl | <code>GetLogUrlFn</code> | 
-| getLogFile | <code>GetLogFileFn</code> | 
-| getLogCustomResponse | <code>GetLogCustomResponseFn</code> | 
+| addStorageType | <code>FonctionAjouterTypeDeStockageJournal</code> | 
+| saveLogToStorage | <code>FonctionEnregistrerJournalDansLeStockage</code> | 
+| getLogUrl | <code>FonctionObtenirURLJournal</code> | 
+| getLogFile | <code>FonctionObtenirFichierJournal</code> | 
+| getLogCustomResponse | <code>FonctionObtenirRéponsePersonnaliséeJournal</code> | 
 
-<a name="PluginHooksAPI"></a>
+<a name="API des Crochets de Plugin"></a>
 
-## PluginHooksAPI : <code>object</code>
-**Kind**: global typedef  
-**Properties**
+## API des Crochets de Plugin : <code>object</code>
+**Type**: typedef  
+**Propriétés**
 
-| Name | Type |
+| Nom | Type |
 | --- | --- |
-| beforeNewThread | <code>AddBeforeNewThreadHookFn</code> | 
-| afterThreadClose | <code>AddAfterThreadCloseHookFn</code> | 
+| beforeNewThread | <code>FonctionAjouterCrochetAvantNouveauFil</code> | 
+| afterThreadClose | <code>FonctionAjouterCrochetAprèsFermetureFil</code> | 
 
-<a name="PluginDisplayRolesAPI"></a>
+<a name="API des Rôles d'Affichage de Plugin"></a>
 
-## PluginDisplayRolesAPI : <code>displayRoles</code>
-**Kind**: global typedef  
-**See**: https://github.com/Dragory/modmailbot/blob/master/src/data/displayRoles.js  
-<a name="PluginThreadsAPI"></a>
+## API des Rôles d'Affichage de Plugin : <code>displayRoles</code>
+**Type**: typedef  
+**Voir**: https://github.com/ines/modmailbot/blob/master/src/data/displayRoles.js  
 
-## PluginThreadsAPI : <code>threads</code>
-**Kind**: global typedef  
-**See**: https://github.com/Dragory/modmailbot/blob/master/src/data/threads.js  
-<a name="PluginWebServerAPI"></a>
+<a name="API des Fils de Plugin"></a>
 
-## PluginWebServerAPI : <code>express.Application</code>
-**Kind**: global typedef  
-**See**: https://expressjs.com/en/api.html#app  
-<a name="PluginFormattersAPI"></a>
+## API des Fils de Plugin : <code>threads</code>
+**Type**: typedef  
+**Voir**: https://github.com/ines/modmailbot/blob/master/src/data/threads.js  
 
-## PluginFormattersAPI : <code>FormattersExport</code>
-**Kind**: global typedef  
-**See**: https://github.com/Dragory/modmailbot/blob/master/src/formatters.js  
+<a name="API du Serveur Web de Plugin"></a>
+
+## API du Serveur Web de Plugin : <code>express.Application</code>
+**Type**: typedef  
+**Voir**: https://expressjs.com/en/api.html#app  
+
+<a name="API des Formateurs de Plugin"></a>
+
+## API des Formateurs de Plugin : <code>FormattersExport</code>
+**Type**: typedef  
+**Voir**: https://github.com/ines/modmailbot/blob/master/src/formatters.js  

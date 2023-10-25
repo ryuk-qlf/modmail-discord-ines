@@ -40,7 +40,6 @@ module.exports = {
       }
 
       if (message === "Connection Error: Error: read ECONNRESET") {
-        // Knex automatically handles the reconnection
         return;
       }
 

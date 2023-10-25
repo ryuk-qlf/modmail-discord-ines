@@ -15,13 +15,11 @@ function getHeadCommitHash() {
     return null;
   }
 
-  // Find HEAD ref and read the commit hash from that ref
   const headRefInfo = fs.readFileSync(path.resolve(gitDir, "HEAD"), { encoding: "utf8" });
   if (headRefInfo.startsWith("ref:")) {
-    const refPath = headRefInfo.slice(5).trim(); // ref: refs/heads/... to refs/heads/...
+    const refPath = headRefInfo.slice(5).trim();
     return fs.readFileSync(path.resolve(gitDir, refPath), { encoding: "utf8" }).trim();
   } else {
-    // Detached head, just the commit hash
     return headRefInfo.trim();
   }
 }

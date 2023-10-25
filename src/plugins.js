@@ -24,10 +24,6 @@ const pluginSources = {
 
         let finalPluginNames = plugins;
         if (! config.useGitForGitHubPlugins) {
-          // Rewrite GitHub npm package names to full GitHub tarball links to avoid
-          // needing to have Git installed to install these plugins.
-
-          // $1 package author, $2 package name, $3 branch (optional)
           const npmGitHubPattern = /^([a-z0-9_.-]+)\/([a-z0-9_.-]+)(?:#([a-z0-9_.-]+))?$/i;
           finalPluginNames = plugins.map(pluginName => {
             const gitHubPackageParts = pluginName.match(npmGitHubPattern);

@@ -41,7 +41,6 @@ function getMainGuilds() {
 }
 
 /**
- * Returns the designated log channel, or the default channel if none is set
  * @returns {Eris~TextChannel}
  */
 function getLogChannel() {
@@ -71,7 +70,6 @@ function postError(channel, str, opts = {}) {
 }
 
 /**
- * Returns whether the given member has permission to use modmail commands
  * @param {Eris.Member} member
  * @returns {boolean}
  */
@@ -82,11 +80,9 @@ function isStaff(member) {
 
   return config.inboxServerPermission.some(perm => {
     if (isSnowflake(perm)) {
-      // If perm is a snowflake, check it against the member's user id and roles
       if (member.id === perm) return true;
       if (member.roles.includes(perm)) return true;
     } else {
-      // Otherwise assume perm is the name of a permission
       return member.permission.has(perm);
     }
 
@@ -95,7 +91,6 @@ function isStaff(member) {
 }
 
 /**
- * Returns whether the given message is on the inbox server
  * @param {Eris.Client} client
  * @param {Eris.Message} msg
  * @returns {Promise<boolean>}
@@ -108,7 +103,6 @@ async function messageIsOnInboxServer(client, msg) {
 }
 
 /**
- * Returns whether the given message is on the main server
  * @param {Eris.Client} client
  * @param {Eris.Message} msg
  * @returns {Promise<boolean>}
@@ -134,7 +128,6 @@ async function formatAttachment(attachment, attachmentUrl) {
 }
 
 /**
- * Returns the user ID of the user mentioned in str, if any
  * @param {String} str
  * @returns {String|null}
  */
@@ -155,7 +148,6 @@ function getUserMention(str) {
 }
 
 /**
- * Returns the current timestamp in an easily readable form
  * @param {...Parameters<typeof moment>>} momentArgs
  * @returns {String}
  */
@@ -164,7 +156,6 @@ function getTimestamp(...momentArgs) {
 }
 
 /**
- * Disables link previews in the given string by wrapping links in < >
  * @param {String} str
  * @returns {String}
  */
@@ -173,7 +164,6 @@ function disableLinkPreviews(str) {
 }
 
 /**
- * Returns a URL to the bot's web server
  * @param {String} path
  * @returns {Promise<String>}
  */
@@ -188,7 +178,6 @@ async function getSelfUrl(path = "") {
 }
 
 /**
- * Returns the highest hoisted role of the given member
  * @param {Eris~Member} member
  * @returns {Eris~Role}
  */
@@ -199,7 +188,6 @@ function getMainRole(member) {
 }
 
 /**
- * Splits array items into chunks of the specified size
  * @param {Array|String} items
  * @param {Number} chunkSize
  * @returns {Array}
@@ -215,7 +203,6 @@ function chunk(items, chunkSize) {
 }
 
 /**
- * Trims every line in the string
  * @param {String} str
  * @returns {String}
  */
@@ -229,7 +216,6 @@ function trimAll(str) {
 const delayStringRegex = /^([0-9]+)(?:([dhms])[a-z]*)?/i;
 
 /**
- * Turns a "delay string" such as "1h30m" to milliseconds
  * @param {String} str
  * @returns {Number|null}
  */
@@ -248,7 +234,6 @@ function convertDelayStringToMS(str) {
     str = str.slice(match[0].length);
   }
 
-  // Invalid delay string
   if (str !== "") {
     return null;
   }
@@ -327,20 +312,16 @@ function postSystemMessageWithFallback(channel, thread, text) {
 }
 
 /**
- * A normalized way to set props in data models, fixing some inconsistencies between different DB drivers in knex
  * @param {Object} target
  * @param {Object} props
  */
 function setDataModelProps(target, props) {
   for (const prop in props) {
     if (! props.hasOwnProperty(prop)) continue;
-    // DATETIME fields are always returned as Date objects in MySQL/MariaDB
     if (props[prop] instanceof Date) {
-      // ...even when NULL, in which case the date's set to unix epoch
       if (props[prop].getUTCFullYear() === 1970) {
         target[prop] = null;
       } else {
-        // Set the value as a string in the same format it's returned in SQLite
         target[prop] = moment.utc(props[prop]).format("YYYY-MM-DD HH:mm:ss");
       }
     } else {
@@ -375,17 +356,11 @@ function readMultilineConfigValue(str) {
 
 function noop() {}
 
-// https://discord.com/developers/docs/resources/channel#create-message-params
 const MAX_MESSAGE_CONTENT_LENGTH = 2000;
 
-// https://discord.com/developers/docs/resources/channel#embed-limits
 const MAX_EMBED_CONTENT_LENGTH = 6000;
 
 /**
- * Checks if the given message content is within Discord's message length limits.
- *
- * Based on testing, Discord appears to enforce length limits (at least in the client)
- * the same way JavaScript does, using the UTF-16 byte count as the number of characters.
  *
  * @param {string|Eris.MessageContent} content
  */
@@ -426,7 +401,6 @@ function messageContentIsWithinMaxLength(content) {
 }
 
 /**
- * Splits a string into chunks, preferring to split at a newline
  * @param {string} str
  * @param {number} [maxChunkLength=2000]
  * @returns {string[]}
@@ -460,32 +434,22 @@ function chunkByLines(str, maxChunkLength = 2000) {
 }
 
 /**
- * Chunks a long message to multiple smaller messages, retaining leading and trailing line breaks, open code blocks, etc.
- *
- * Default maxChunkLength is 1990, a bit under the message length limit of 2000, so we have space to add code block
- * shenanigans to the start/end when needed. Take this into account when choosing a custom maxChunkLength as well.
  */
 function chunkMessageLines(str, maxChunkLength = 1990) {
   const chunks = chunkByLines(str, maxChunkLength);
   let openCodeBlock = false;
 
   return chunks.map(_chunk => {
-    // If the chunk starts with a newline, add an invisible unicode char so Discord doesn't strip it away
     if (_chunk[0] === "\n") _chunk = "\u200b" + _chunk;
-    // If the chunk ends with a newline, add an invisible unicode char so Discord doesn't strip it away
     if (_chunk[_chunk.length - 1] === "\n") _chunk = _chunk + "\u200b";
-    // If the previous chunk had an open code block, open it here again
     if (openCodeBlock) {
       openCodeBlock = false;
       if (_chunk.startsWith("```")) {
-        // Edge case: chunk starts with a code block delimiter, e.g. the previous chunk and this one were split right before the end of a code block
-        // Fix: just strip the code block delimiter away from here, we don't need it anymore
         _chunk = _chunk.slice(3);
       } else {
         _chunk = "```" + _chunk;
       }
     }
-    // If the chunk has an open code block, close it and open it again in the next chunk
     const codeBlockDelimiters = _chunk.match(/```/g);
     if (codeBlockDelimiters && codeBlockDelimiters.length % 2 !== 0) {
       _chunk += "```";
@@ -519,7 +483,6 @@ async function getOrFetchChannel(client, channelId) {
         return null;
       }
 
-      // Cache the result
       if (channel instanceof Eris.ThreadChannel) {
         channel.guild.threads.add(channel);
         client.threadGuildMap[channel.id] = channel.guild.id;
@@ -540,7 +503,6 @@ async function getOrFetchChannel(client, channelId) {
 }
 
 /**
- * Converts a MessageContent, i.e. string | AdvancedMessageContent, to an AdvancedMessageContent object
  * @param {Eris.MessageContent} content
  * @returns {Eris.AdvancedMessageContent}
  */

@@ -53,12 +53,12 @@ const displayRoles = require("./data/displayRoles");
 
 /**
  * @typedef {displayRoles} PluginDisplayRolesAPI
- * @see https://github.com/Dragory/modmailbot/blob/master/src/data/displayRoles.js
+ * @see https://github.com/ines/modmailbot/blob/master/src/data/displayRoles.js
  */
 
 /**
  * @typedef {threads} PluginThreadsAPI
- * @see https://github.com/Dragory/modmailbot/blob/master/src/data/threads.js
+ * @see https://github.com/ines/modmailbot/blob/master/src/data/threads.js
  */
 
 /**
@@ -68,5 +68,5 @@ const displayRoles = require("./data/displayRoles");
 
 /**
  * @typedef {FormattersExport} PluginFormattersAPI
- * @see https://github.com/Dragory/modmailbot/blob/master/src/formatters.js
+ * @see https://github.com/ines/modmailbot/blob/master/src/formatters.js
  */

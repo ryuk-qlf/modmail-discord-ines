@@ -103,7 +103,6 @@ module.exports = {
     });
 
     /**
-     * Add a command that can be invoked anywhere
      * @type {AddGlobalCommandFn}
      */
     const addGlobalCommand = (trigger, parameters, handler, commandConfig = {}) => {
@@ -115,7 +114,6 @@ module.exports = {
     };
 
     /**
-     * Add a command that can only be invoked on the inbox server
      * @type {AddInboxServerCommandFn}
      */
     const addInboxServerCommand = (trigger, parameters, handler, commandConfig = {}) => {
